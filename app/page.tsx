@@ -1,103 +1,122 @@
-import Image from "next/image";
+'use client'
+import React from 'react';
+import NextLink from 'next/link';
+import {
+  Box,
+  Paper,
+  Typography,
+  Button,
+  Stack,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Dialog
+} from '@mui/material';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [open, setOpen] = React.useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    // 外部容器：使用 Box 替换 div，实现全屏居中
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundColor: 'grey.50', // 对应 bg-gray-100
+        p: 2, // 确保有内边距，防止内容贴边
+      }}
+    >
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"No GOOGLE translate"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Our website may crash when using Google Translate or other translations.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {/*<Button onClick={handleClose}>Disagree</Button>*/}
+          <Button onClick={handleClose} autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* 中间的卡片：使用 Paper 替换 div，实现阴影、圆角和背景 */}
+      <Paper
+        elevation={10} // 对应 shadow-2xl，MUI 阴影级别
+        sx={{
+          padding: 5, // 对应 p-10
+          borderRadius: 2, // 对应 rounded-md
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          // w-fit 效果，让 Paper 宽度自适应内容
+          width: 'fit-content',
+        }}
+      >
+        {/* 标题 */}
+        <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          Pdnode Account
+        </Typography>
+
+        {/* 副标题/描述 */}
+        <Typography variant="body1" gutterBottom sx={{ mb: 3 }}>
+          Please select your account type
+        </Typography>
+
+        {/* 按钮堆栈：使用 Stack 替换 space-y-4，实现垂直间距 */}
+        <Stack spacing={2} direction="column" alignItems="stretch" sx={{ width: '100%' }}>
+
+          {/* 1. General 按钮 - 使用 NextLink 和 Button 结合实现路由跳转 */}
+          <Button
+            component={NextLink} // 告诉 MUI Button 使用 NextLink 组件作为根元素
+            href="/general"
+            variant="outlined" // 对应 border border-gray-400
+            color="inherit" // 对应 text-gray-800
+            sx={{
+              py: 1.5, // 对应 py-2
+              borderColor: 'grey.400',
+              '&:hover': {
+                backgroundColor: 'grey.100', // 对应 hover:bg-gray-100
+                borderColor: 'grey.500',
+              },
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            General
+          </Button>
+
+          {/* 2. Chat(Enterprise) 按钮 */}
+          <Button
+            variant="outlined"
+            color="inherit"
+            disabled // 假设这个按钮暂时不可用
+            sx={{
+              py: 1.5,
+              borderColor: 'grey.400',
+              '&:hover': {
+                backgroundColor: 'grey.100',
+                borderColor: 'grey.500',
+              },
+            }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            Chat(Enterprise)
+          </Button>
+        </Stack>
+      </Paper>
+    </Box>
   );
 }
