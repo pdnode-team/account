@@ -112,7 +112,7 @@ export default function RegisterPage() {
 
 
         <Alert severity="info" sx={{mb: 3}}>
-          You are logging in to the "general" account. <Link href="/">Back</Link>
+          You are logging in to the &quot;general&quot; account. <Link href="/">Back</Link>
         </Alert>
 
 

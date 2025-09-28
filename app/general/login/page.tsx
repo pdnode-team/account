@@ -170,7 +170,7 @@ export default function LoginPage() {
         <Box sx={{textAlign: 'center', mt: 2}}>
           {/* 使用 MUI Link 组件，它默认是一个 <a> 标签 */}
           <Link href="/general/register" variant="body2" color="primary">
-            Don't have account? Register
+            Don&apos;t have account? Register
           </Link>
         </Box>
       </Paper>
