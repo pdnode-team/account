@@ -16,7 +16,7 @@ import {
 
 export default function Home() {
   const [open, setOpen] = React.useState(true);
-
+  const [generalLoading, setGeneralLoading] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -85,6 +85,7 @@ export default function Home() {
           <Button
             component={NextLink} // 告诉 MUI Button 使用 NextLink 组件作为根元素
             href="/general"
+            onClick={() => setGeneralLoading(true)}
             variant="outlined" // 对应 border border-gray-400
             color="inherit" // 对应 text-gray-800
             sx={{
@@ -95,6 +96,7 @@ export default function Home() {
                 borderColor: 'grey.500',
               },
             }}
+            loading={generalLoading}
           >
             General
           </Button>

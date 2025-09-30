@@ -1,6 +1,6 @@
 'use client'
 import {useEffect, useState} from 'react';
-import {Box, Paper, Typography, TextField, Button, Alert, Link, Stack} from "@mui/material";
+import {Box, Paper, Typography, TextField, Button, Alert, Link, Stack, Checkbox, FormControlLabel} from "@mui/material";
 import {FormEvent} from 'react'; // 导入 FormEvent 类型
 import {account} from '@/lib/appwrite_general'
 import {isValidEmail} from "@/lib/email";
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
+  const [isAgree, setIsAgree] = useState<boolean>(false);
 
   useEffect(() => {
 
@@ -32,7 +33,15 @@ export default function LoginPage() {
   // 修复 TypeScript 错误：明确事件类型为 React.FormEvent<HTMLFormElement>
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isAgree) {
+      setError('Please agree User Agreement and Privacy Agreement.');
+      return;
+    }
+
     setDisabled(true)
+
+
 
     if (!email || !password) {
       setError('Please enter email and password');
@@ -163,6 +172,43 @@ export default function LoginPage() {
               Login
             </Button>
 
+            <FormControlLabel
+              control={
+                <Checkbox
+                  sx={{
+                    // 放大/缩小 Checkbox 内部的 SVG 图标
+                    '& .MuiSvgIcon-root': {fontSize: 20}
+                  }}
+                  value={isAgree}
+                  onChange={(e) => setIsAgree(e.target.checked)}
+                />
+              }
+              // 将标签文本放在 Typography 中，以明确控制其大小
+              label={
+                <Typography
+                  component="span" // 使用 span 确保所有内容在同一行
+                  sx={{ fontSize: 'inherit' }} // 继承 Box 的字体大小
+                >
+                  I have read and agreed to the{' '}
+                  <Link
+                    href="https://pdnode.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    User Agreement
+                  </Link>
+                  {' '}and{' '}
+                  <Link
+                    href="https://pdnode.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Privacy Agreement.
+                  </Link>
+                </Typography>
+
+              }
+            />
           </Stack>
         </Box>
 
